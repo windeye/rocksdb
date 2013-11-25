@@ -186,12 +186,15 @@ struct SkipList<Key,Comparator>::Node {
 
  private:
   // Array of length equal to the node height.  next_[0] is lowest level link.
+	// 一个指针数组，也是一个节点，节点是有高度的。
   port::AtomicPointer next_[1];
 };
 
+//注意这的返回值是typename的，告诉编译器这个Node只是声明
 template<typename Key, class Comparator>
 typename SkipList<Key,Comparator>::Node*
 SkipList<Key,Comparator>::NewNode(const Key& key, int height) {
+	//利用最后一个元素是大小为1的数组的特性来分配内存,redis也是这么干的。
   char* mem = arena_->AllocateAligned(
       sizeof(Node) + sizeof(port::AtomicPointer) * (height - 1));
   return new (mem) Node(key);
