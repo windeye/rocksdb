@@ -35,7 +35,7 @@ class WriteBatch;
 // Metadata associated with each SST file.
 struct LiveFileMetaData {
   std::string name;        // Name of the file
-  int level;               // Level at which this file resides.
+  int level;               // Level at which this file resides. //reside 居住 属于
   size_t size;             // File size in bytes.
   std::string smallestkey; // Smallest user defined key in the file.
   std::string largestkey;  // Largest user defined key in the file.
@@ -96,12 +96,14 @@ class DB {
   // success, and a non-OK status on error.  It is not an error if "key"
   // did not exist in the database.
   // Note: consider setting options.sync = true.
+  // NOTE:考虑设置sync为true
   virtual Status Delete(const WriteOptions& options, const Slice& key) = 0;
 
   // Merge the database entry for "key" with "value".  Returns OK on success,
   // and a non-OK status on error. The semantics of this operation is
   // determined by the user provided merge_operator when opening DB.
   // Note: consider setting options.sync = true.
+  // NOTE:考虑设置sync为true
   virtual Status Merge(const WriteOptions& options,
                        const Slice& key,
                        const Slice& value) = 0;
@@ -109,6 +111,7 @@ class DB {
   // Apply the specified updates to the database.
   // Returns OK on success, non-OK on failure.
   // Note: consider setting options.sync = true.
+  // NOTE:考虑设置sync为true
   virtual Status Write(const WriteOptions& options, WriteBatch* updates) = 0;
 
   // If the database contains an entry for "key" store the
@@ -136,6 +139,7 @@ class DB {
                                        const std::vector<Slice>& keys,
                                        std::vector<std::string>* values) = 0;
 
+  // definitely 确定的 肯定的
   // If the key definitely does not exist in the database, then this method
   // returns false, else true. If the caller wants to obtain value when the key
   // is found in memory, a bool for 'value_found' must be passed. 'value_found'

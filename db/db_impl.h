@@ -149,6 +149,7 @@ class DBImpl : public DB {
     // that corresponds to the set of files in 'live'.
     uint64_t manifest_file_number, log_number, prev_log_number;
 
+    //int，char等普通数据类型一定要在构造函数初始化
     DeletionState() {
       manifest_file_number = 0;
       log_number = 0;
@@ -169,6 +170,7 @@ class DBImpl : public DB {
   // belong to live files are posibly removed. Also, removes all the
   // files in sst_delete_files and log_delete_files.
   // It is not necessary to hold the mutex when invoking this method.
+  // purge 净化，清理
   void PurgeObsoleteFiles(DeletionState& deletion_state);
 
  protected:
@@ -286,6 +288,7 @@ class DBImpl : public DB {
 
   // Return the minimum empty level that could hold the total data in the
   // input level. Return the input level, if such level could not be found.
+  // 不明白这个是干啥的
   int FindMinimumEmptyLevelFitting(int level);
 
   // Move the files in the input level to the target level.
